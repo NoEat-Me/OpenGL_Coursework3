@@ -1,0 +1,10 @@
+﻿  Coursework3.cpp
+C:\Users\25766\Documents\OpenGL_Coursework3\Coursework3\Coursework3\util.h(17,35): warning C4267: “初始化”: 从“size_t”转换到“long”，可能丢失数据
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+C:\Users\25766\Documents\OpenGL_Coursework3\include\glad\glad.h(32): message : 参见“APIENTRY”的前一个定义
+C:\Users\25766\Documents\OpenGL_Coursework3\Coursework3\Coursework3\vertices.h(56,1): warning C4305: “初始化”: 从“double”到“float”截断
+C:\Users\25766\Documents\OpenGL_Coursework3\Coursework3\Coursework3\Coursework3.cpp(93,19): warning C4244: “-=”: 从“double”转换到“float”，可能丢失数据
+C:\Users\25766\Documents\OpenGL_Coursework3\Coursework3\Coursework3\Coursework3.cpp(98,19): warning C4244: “+=”: 从“double”转换到“float”，可能丢失数据
+C:\Users\25766\Documents\OpenGL_Coursework3\Coursework3\Coursework3\Coursework3.cpp(187,28): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\25766\Documents\OpenGL_Coursework3\Coursework3\Coursework3\texture.h(51): warning C4715: “loadbitmap”: 不是所有的控件路径都返回值
+  Coursework3.vcxproj -> C:\Users\25766\Documents\OpenGL_Coursework3\Coursework3\x64\Debug\Coursework3.exe

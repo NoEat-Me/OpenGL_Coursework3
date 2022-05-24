@@ -1,0 +1,76 @@
+#version 330 core
+
+out vec4 fragColour;
+
+in vec2 tex;
+in vec3 nor;
+in vec3 FragPos;
+
+uniform sampler2D Texture;
+uniform vec3 lightDirection;
+uniform vec3 lightColour;
+uniform vec3 lightPos;
+uniform vec3 camPos;
+
+float CalculateSpotIllumination()
+{
+	float ambient = 0.1f;
+	float phong;
+
+	vec3 Nnor = normalize(nor);
+	vec3 Nto_light = normalize(lightPos - FragPos);
+	float diffuse = max(dot(Nnor, Nto_light), 0.0f);
+
+	vec3 Nfrom_light = -Nto_light;
+	vec3 NrefLight = reflect(Nfrom_light,Nnor);
+	vec3 camDirection = camPos - FragPos;
+	vec3 NcamDirection = normalize(camDirection);
+	float specular = pow(max(dot(NcamDirection,NrefLight),0.0f),128);
+	
+	float distance = length(lightPos - FragPos);
+
+	float attenuation = 1.0/(1.5 + 0.05 * distance + 0.02 * pow(distance,2));
+
+	float phi = cos(radians(15.0f));
+
+	vec3 NSpotDir = normalize(lightDirection);
+
+	float theta = dot(Nfrom_light, NSpotDir);
+
+	if(theta > phi)
+	{phong = (ambient + diffuse + specular) * attenuation;}
+	else
+	{phong = ambient * attenuation;}
+
+	return phong;	
+}
+
+float CalculatePositionalIllumination()
+{
+	float ambient = 0.1f;
+
+	vec3 Nnor = normalize(nor);
+	vec3 Nto_light = normalize(lightPos - FragPos);
+	float diffuse = max(dot(Nnor, Nto_light), 0.0f);
+
+	vec3 Nfrom_light = -Nto_light;
+	vec3 NrefLight = reflect(Nfrom_light,Nnor);
+	vec3 camDirection = camPos - FragPos;
+	vec3 NcamDirection = normalize(camDirection);
+	float specular = pow(max(dot(NcamDirection,NrefLight),0.0f),128);
+	
+	float distance = length(lightPos - FragPos);
+
+	float attenuation = 1.0/(1.5 + 0.05 * distance + 0.02 * pow(distance,2));
+
+	return (ambient + diffuse + specular) * attenuation;
+}
+
+void main()
+{
+	float phong_position = CalculatePositionalIllumination();
+	float phong_spot = CalculateSpotIllumination();
+	fragColour = vec4(texture(Texture, tex).xyz * phong_position * lightColour , 1.f) + 
+				vec4(texture(Texture, tex).xyz * phong_spot * lightColour , 1.f);
+	//fragColour = texture(Texture, tex);
+}
